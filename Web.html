@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML — Engineering Hub</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style> :root { --lang-color: #e34c26; } </style>
+  <script src="shared.js" defer></script>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="abc.html" class="nav-brand">Vivek <span>Dahal</span></a>
+  <div class="nav-pills">
+    <a href="C.html" class="nav-pill">C</a>
+    <a href="Python.html" class="nav-pill">Python</a>
+    <a href="JS.html" class="nav-pill">JS</a>
+    <a href="CSS.html" class="nav-pill">CSS</a>
+    <a href="Web.html" class="nav-pill active">HTML</a>
+    <a href="Php.html" class="nav-pill">PHP</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <a href="index.html" class="back-link">← Back to Hub</a>
+
+  <div class="page-hero">
+    <span class="lang-badge">Structural Engineering · DOM · 1991</span>
+    <h1>HTML & the <em>DOM Tree</em></h1>
+    <p class="subtitle">// tokenization, semantic nodes, and the render path</p>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <span class="section-title">The Architect</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="founder-card">
+    <img src="image6.jpg" alt="Tim Berners-Lee"/>
+    <div class="founder-info">
+      <h3>Sir Tim Berners-Lee</h3>
+      <p>In 1991, Berners-Lee created HTML at CERN so researchers could share documents. By designing it as a <b>declarative markup language</b> rather than procedural, he ensured the web could be processed by any machine regardless of hardware architecture.</p>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <span class="section-title">The Tokenization Algorithm</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>When a browser receives an HTML byte stream, it runs <b>Tokenization</b> — converting characters into tokens (StartTag, EndTag, Attribute, Comment). Unlike most languages, HTML has a built-in <b>error recovery</b> algorithm that auto-fixes missing or malformed tags. However, this costs CPU cycles and can cause a <i>Flash of Unstyled Content (FOUC)</i>.</p>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <span class="section-title">The DOM Tree</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>HTML is not the final state. The browser builds an internal structure called the <b>DOM Tree</b> — every tag becomes a <b>Node</b>. CSS is then applied to create the <b>Render Tree</b>. Only visible nodes (not <code>display: none</code>) are painted to screen. This distinction is critical for performance.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Hierarchical Nesting</h3>
+    <p>Write the HTML code for a <b>Level 2 Heading</b> containing the text <b>"Analysis"</b>:</p>
+    <input type="text" id="p1" placeholder="<h2>Analysis</h2>"/>
+    <button class="check-btn" onclick="validate('p1','<h2>Analysis</h2>','m1','l1')">Parse Tag</button>
+    <div class="result-row"><div id="l1" class="indicator"></div><div id="m1" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">04</span>
+    <span class="section-title">Semantic SEO & Accessibility</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>High-level engineering uses <b>Semantic HTML</b>. A <code>&lt;button&gt;</code> vs a <code>&lt;div&gt;</code> isn't just style — it's about the <b>Accessibility Tree</b>, used by screen readers to convert visual nodes to speech for users with visual impairments.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Metadata Specification</h3>
+    <p>Write the self-closing tag to define the character encoding as UTF-8:</p>
+    <input type="text" id="p2" placeholder='<meta charset="UTF-8">'/>
+    <button class="check-btn" onclick='validate("p2","<meta charset=\"UTF-8\">","m2","l2")'>Verify Meta</button>
+    <div class="result-row"><div id="l2" class="indicator"></div><div id="m2" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">05</span>
+    <span class="section-title">The Critical Rendering Path</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>HTML is <b>render-blocking</b> — the browser waits for the full DOM before painting. JavaScript is <b>parser-blocking</b> — hitting a <code>&lt;script&gt;</code> tag stops DOM construction entirely until the script downloads and executes. This is why serious apps use the <code>defer</code> attribute.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Document Type Declaration</h3>
+    <p>Write the required doctype declaration for <b>HTML5</b>:</p>
+    <input type="text" id="p3" placeholder="<!DOCTYPE html>"/>
+    <button class="check-btn" onclick="validate('p3','<!DOCTYPE html>','m3','l3')">Validate Root</button>
+    <div class="result-row"><div id="l3" class="indicator"></div><div id="m3" class="result-text"></div></div>
+  </div>
+
+  <div class="conclusion">
+    <strong>Conclusion:</strong> Behind every "simple" HTML tag, a set of C++ algorithms maps text into a visual, interactive, and accessible interface. HTML is the definitive source of truth for the browser.
+  </div>
+</div>
+
+<footer class="page-footer">
+  Engineering Hub · <span>HTML</span> · Built by Vivek Dahal
+</footer>
+</body>
+</html>

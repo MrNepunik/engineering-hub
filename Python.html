@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python — Engineering Hub</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style> :root { --lang-color: #f2e064; } </style>
+  <script src="shared.js" defer></script>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="abc.html" class="nav-brand">Vivek <span>Dahal</span></a>
+  <div class="nav-pills">
+    <a href="C.html" class="nav-pill">C</a>
+    <a href="Python.html" class="nav-pill active">Python</a>
+    <a href="JS.html" class="nav-pill">JS</a>
+    <a href="CSS.html" class="nav-pill">CSS</a>
+    <a href="Web.html" class="nav-pill">HTML</a>
+    <a href="Php.html" class="nav-pill">PHP</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <a href="index.html" class="back-link">← Back to Hub</a>
+
+  <div class="page-hero">
+    <span class="lang-badge">Interpreted · CPython · 1991</span>
+    <h1>Python & the <em>Abstract Machine</em></h1>
+    <p class="subtitle">// bytecode, GIL, and duck typing</p>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <span class="section-title">The Visionary</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="founder-card">
+    <img src="image5.jpg" alt="Guido van Rossum"/>
+    <div class="founder-info">
+      <h3>Guido van Rossum</h3>
+      <p>Released in 1991, Python was designed as a successor to the ABC language. Van Rossum's "Pythonic" philosophy: <b>"one—and preferably only one—obvious way to do it."</b> This focus on clean implementation logic allowed Python to dominate academic and AI fields.</p>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <span class="section-title">How Python Executes</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>Python doesn't run source code directly. It follows a pipeline:</p>
+    <ol>
+      <li><b>Compilation:</b> Source (.py) → <b>Bytecode</b> (.pyc)</li>
+      <li><b>Virtual Machine:</b> Bytecode is shipped to the <b>Python Virtual Machine (PVM)</b></li>
+      <li><b>Runtime:</b> The PVM executes instructions</li>
+    </ol>
+    <p>The Bytecode middle step makes Python platform-independent — the PVM handles hardware translation.</p>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <span class="section-title">Memory Management & Reference Counting</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>Python manages memory via <b>Reference Counting</b> + a <b>Cyclic Garbage Collector</b>. Every object has a counter. When you assign a variable, the counter increments. When you delete it, it decrements. When it hits <b>zero</b>, memory is instantly reclaimed.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Object Output</h3>
+    <p>Write the function to display <b>"Output"</b> to standard output (include brackets and quotes):</p>
+    <input type="text" id="p1" placeholder='print("Output")'/>
+    <button class="check-btn" onclick='validate("p1","print(\"Output\")","m1","l1")'>Check Bytecode</button>
+    <div class="result-row"><div id="l1" class="indicator"></div><div id="m1" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">04</span>
+    <span class="section-title">The Global Interpreter Lock (GIL)</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>The <b>GIL</b> is a mutex that prevents multiple native threads from executing Python bytecodes simultaneously. Even on a 16-core CPU, a single Python process can only use <b>one core</b> at a time. Engineers bypass this with <i>Multiprocessing</i> or <i>AsyncIO</i>.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Variable Assignment</h3>
+    <p>Declare a variable named <b>count</b> and assign it the integer <b>100</b>:</p>
+    <input type="text" id="p2" placeholder="count = 100"/>
+    <button class="check-btn" onclick="validate('p2','count = 100','m2','l2')">Check Logic</button>
+    <div class="result-row"><div id="l2" class="indicator"></div><div id="m2" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">05</span>
+    <span class="section-title">Dynamic Typing & Duck Typing</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p><b>"If it walks like a duck and quacks like a duck, it's a duck."</b> You don't define types — the PVM checks if an object has the required methods at runtime. Extreme flexibility, but requires strict unit testing.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Data Structures</h3>
+    <p>Write the syntax for an empty <b>List</b> (using square brackets):</p>
+    <input type="text" id="p3" placeholder="[]"/>
+    <button class="check-btn" onclick="validate('p3','[]','m3','l3')">Check Syntax</button>
+    <div class="result-row"><div id="l3" class="indicator"></div><div id="m3" class="result-text"></div></div>
+  </div>
+
+  <div class="conclusion">
+    <strong>Conclusion:</strong> Python's simplicity is a mask for internal complexity. By abstracting memory management and CPU threading, it lets engineers build AI and Big Data systems with human-readable logic.
+  </div>
+</div>
+
+<footer class="page-footer">
+  Engineering Hub · <span>Python</span> · Built by Vivek Dahal
+</footer>
+</body>
+</html>
