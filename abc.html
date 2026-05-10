@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vivek Dahal — Engineering Hub</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    :root { --lang-color: #58a6ff; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HERO */
+    .hub-hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      position: relative;
+    }
+
+    .hub-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(88,166,255,0.07) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(119,123,180,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hub-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hub-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1rem;
+      background: linear-gradient(160deg, #fff 30%, #7d8590 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hub-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.8;
+      margin-bottom: 3.5rem;
+    }
+
+    /* LANGUAGE GRID */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 580px;
+      margin-bottom: 3rem;
+    }
+
+    .lang-card {
+      background: var(--surface);
+      text-decoration: none;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s var(--transition);
+    }
+
+    .lang-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      transform: scaleX(0);
+      transition: transform 0.3s var(--transition);
+    }
+
+    .lang-card:hover { background: var(--surface2); }
+    .lang-card:hover::after { transform: scaleX(1); }
+    .lang-card:hover .lang-name { color: var(--lc); }
+
+    .lang-icon { font-size: 1.6rem; }
+
+    .lang-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .lang-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* per-card colors */
+    .card-c   { --lc: #a8b9cc; } .card-c::after   { background: #a8b9cc; }
+    .card-py  { --lc: #f2e064; } .card-py::after  { background: #f2e064; }
+    .card-js  { --lc: #f7df1e; } .card-js::after  { background: #f7df1e; }
+    .card-css { --lc: #264de4; } .card-css::after { background: #264de4; }
+    .card-html{ --lc: #e34c26; } .card-html::after{ background: #e34c26; }
+    .card-php { --lc: #777bb4; } .card-php::after { background: #777bb4; }
+
+    /* THEORY NOTE */
+    .hub-note {
+      max-width: 580px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+    }
+
+    .hub-note h3 {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hub-note p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .hub-note code {
+      background: var(--bg);
+      color: var(--accent);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+    }
+
+    /* FOOTER */
+    .hub-footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: #30363d;
+      text-transform: uppercase;
+      border-top: 1px solid var(--border);
+    }
+
+    .hub-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .lang-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="abc.html" class="nav-brand">Vivek <span>Dahal</span></a>
+  <div class="nav-pills">
+    <a href="C.html" class="nav-pill">C</a>
+    <a href="Python.html" class="nav-pill">Python</a>
+    <a href="JS.html" class="nav-pill">JS</a>
+    <a href="CSS.html" class="nav-pill">CSS</a>
+    <a href="Web.html" class="nav-pill">HTML</a>
+    <a href="Php.html" class="nav-pill">PHP</a>
+  </div>
+</nav>
+
+<main class="hub-hero">
+  <p class="hub-tag">Programming Language Blog · Vivek Dahal</p>
+  <h1>Engineering<br/>Hub</h1>
+  <p class="hub-desc">Deep-dive articles on programming languages — theory, architecture, and hands-on practice. Written by a CS student from Nepal, headed to Germany.</p>
+
+  <div class="lang-grid">
+    <a href="C.html" class="lang-card card-c">
+      <span class="lang-icon">⚙️</span>
+      <span class="lang-name">C</span>
+      <span class="lang-sub">Systems</span>
+    </a>
+    <a href="Python.html" class="lang-card card-py">
+      <span class="lang-icon">🐍</span>
+      <span class="lang-name">Python</span>
+      <span class="lang-sub">Interpreted</span>
+    </a>
+    <a href="JS.html" class="lang-card card-js">
+      <span class="lang-icon">⚡</span>
+      <span class="lang-name">JavaScript</span>
+      <span class="lang-sub">Browser</span>
+    </a>
+    <a href="CSS.html" class="lang-card card-css">
+      <span class="lang-icon">🎨</span>
+      <span class="lang-name">CSS</span>
+      <span class="lang-sub">Styling</span>
+    </a>
+    <a href="Web.html" class="lang-card card-html">
+      <span class="lang-icon">🌐</span>
+      <span class="lang-name">HTML</span>
+      <span class="lang-sub">Structure</span>
+    </a>
+    <a href="Php.html" class="lang-card card-php">
+      <span class="lang-icon">🐘</span>
+      <span class="lang-name">PHP</span>
+      <span class="lang-sub">Server-Side</span>
+    </a>
+  </div>
+
+  <div class="hub-note">
+    <h3>Theory of UI Compositing</h3>
+    <p>This interface uses <code>backdrop-filter</code> GPU acceleration and <code>cubic-bezier</code> transitions that mimic Newtonian physics — ensuring motion feels mathematically organic rather than linear.</p>
+  </div>
+</main>
+
+<footer class="hub-footer">
+  Stack: HTML5 · CSS · Vanilla JS &nbsp;·&nbsp; Built by <a href="#">Vivek Dahal</a> · Nepal 🇳🇵
+</footer>
+
+</body>
+</html>

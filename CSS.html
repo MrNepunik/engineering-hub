@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS — Engineering Hub</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style> :root { --lang-color: #264de4; } </style>
+  <script src="shared.js" defer></script>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="abc.html" class="nav-brand">Vivek <span>Dahal</span></a>
+  <div class="nav-pills">
+    <a href="C.html" class="nav-pill">C</a>
+    <a href="Python.html" class="nav-pill">Python</a>
+    <a href="JS.html" class="nav-pill">JS</a>
+    <a href="CSS.html" class="nav-pill active">CSS</a>
+    <a href="Web.html" class="nav-pill">HTML</a>
+    <a href="Php.html" class="nav-pill">PHP</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <a href="abc.html" class="back-link">← Back to Hub</a>
+
+  <div class="page-hero">
+    <span class="lang-badge">Cascading Styles · 1996</span>
+    <h1>CSS <em>Deep Architecture</em></h1>
+    <p class="subtitle">// specificity, the box model, and the cascade</p>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <span class="section-title">The Founder</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="founder-card">
+    <img src="image2.jpg" alt="Håkon Wium Lie"/>
+    <div class="founder-info">
+      <h3>Håkon Wium Lie</h3>
+      <p>In 1994 at CERN, Lie proposed <b>Cascading Style Sheets</b>. His core theory: design should be separate from content. Before CSS, changing the color of 100 pages meant editing every one. Lie's "Cascading" theory allows styles to flow from one source to many.</p>
+    </div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <span class="section-title">The Critical Rendering Path</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>When a browser loads CSS, it follows a mathematical process:</p>
+    <ol>
+      <li><b>DOM + CSSOM:</b> HTML (DOM) and CSS (CSSOM) combine into a <b>Render Tree</b>.</li>
+      <li><b>Layout:</b> Calculates exact geometry (width, height, position) of every box.</li>
+      <li><b>Paint:</b> Fills in pixels — colors, shadows, images.</li>
+    </ol>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <span class="section-title">Specificity Math</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>When multiple rules target the same element, CSS uses a point system:</p>
+    <ul>
+      <li><b>Inline Styles:</b> 1000 points</li>
+      <li><b>IDs (#header):</b> 100 points</li>
+      <li><b>Classes (.btn):</b> 10 points</li>
+      <li><b>Elements (h1):</b> 1 point</li>
+    </ul>
+    <p>Example: <code>#nav .link</code> = 110 points. Always beats <code>.link</code> = 10 points.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Class Selector</h3>
+    <p>Write a CSS rule to change the <b>color</b> of class <b>.text</b> to <b>red</b>:</p>
+    <input type="text" id="p1" placeholder=".text { color: red; }"/>
+    <button class="check-btn" onclick="validate('p1','.text { color: red; }','m1','l1')">Check Specificity</button>
+    <div class="result-row"><div id="l1" class="indicator"></div><div id="m1" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">04</span>
+    <span class="section-title">The Box Model</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>The <b>Box Model</b> is the most critical CSS concept. By default, padding/borders increase the element's actual size. <code>box-sizing: border-box;</code> forces padding to stay within the defined width — essential for predictable layouts.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Box-Sizing</h3>
+    <p>Write the property and value that ensures padding doesn't increase element width:</p>
+    <input type="text" id="p2" placeholder="box-sizing: border-box;"/>
+    <button class="check-btn" onclick="validate('p2','box-sizing: border-box;','m2','l2')">Verify Theory</button>
+    <div class="result-row"><div id="l2" class="indicator"></div><div id="m2" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">05</span>
+    <span class="section-title">Grid vs Flexbox</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p><b>Flexbox</b> is 1-dimensional (rows OR columns) — for alignment.<br/>
+    <b>CSS Grid</b> is 2-dimensional (rows AND columns) — for entire page layouts.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Grid Activation</h3>
+    <p>Write the property and value to turn an element into a 2D grid container:</p>
+    <input type="text" id="p3" placeholder="display: grid;"/>
+    <button class="check-btn" onclick="validate('p3','display: grid;','m3','l3')">Activate Grid</button>
+    <div class="result-row"><div id="l3" class="indicator"></div><div id="m3" class="result-text"></div></div>
+  </div>
+
+  <div class="section-label">
+    <span class="section-num">06</span>
+    <span class="section-title">Pseudo-Elements</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="theory-box">
+    <p>CSS can create content that doesn't exist in HTML using <code>::before</code> and <code>::after</code>. Used for decorative elements without cluttering the HTML.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Pseudo-Element Selector</h3>
+    <p>Write the selector for a <b>before</b> pseudo-element on a <b>p</b> tag:</p>
+    <input type="text" id="p4" placeholder="p::before {"/>
+    <button class="check-btn" onclick="validate('p4','p::before {','m4','l4')">Verify Selector</button>
+    <div class="result-row"><div id="l4" class="indicator"></div><div id="m4" class="result-text"></div></div>
+  </div>
+
+  <div class="conclusion">
+    <strong>Conclusion:</strong> CSS is a complex engine managing layouts, pixel painting, and conflict resolution. To master it, respect the Cascade and understand the Box.
+  </div>
+</div>
+
+<footer class="page-footer">
+  Engineering Hub · <span>CSS</span> · Built by Vivek Dahal
+</footer>
+</body>
+</html>
