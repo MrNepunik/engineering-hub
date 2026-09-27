@@ -156,15 +156,27 @@
   #message.error { color: #ff6b6b; }
   #message.ok { color: #4cd98a; }
 
-  .skip {
-    display: block;
+  .bottom-links {
     margin-top: 20px;
-    color: var(--muted);
     font-size: 14px;
-    text-decoration: underline;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .skip:hover { color: var(--ink); }
+  .bottom-links a, .bottom-links button.text-btn {
+    color: var(--muted);
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 0;
+  }
+
+  .bottom-links a:hover, .bottom-links button.text-btn:hover { color: var(--ink); }
 
   #status-card {
     background: var(--panel);
@@ -196,7 +208,7 @@
 
   <main>
     <div class="eyebrow">Account · Engineering Hub</div>
-    <h1 id="heading">Sign in to comment</h1>
+    <h1 id="heading">Sign up to comment</h1>
 
     <div id="form-card" class="card">
       <div class="tabs">
@@ -219,7 +231,12 @@
 
     <div id="status-card" class="card" style="display:none;"></div>
 
-    <a class="skip" href="home.html">Continue without signing in</a>
+    <div class="bottom-links">
+      <div id="toggle-account-text">
+        Already have an account? <button type="button" class="text-btn" id="switch-mode-btn">Log in</button>
+      </div>
+      <a href="home.html">Continue without signing in</a>
+    </div>
   </main>
 
   <script>
@@ -245,6 +262,8 @@
     const heading = document.getElementById("heading");
     const tabSignup = document.getElementById("tab-signup");
     const tabLogin = document.getElementById("tab-login");
+    const switchModeBtn = document.getElementById("switch-mode-btn");
+    const toggleAccountText = document.getElementById("toggle-account-text");
 
     let mode = "signup";
 
@@ -253,6 +272,19 @@
       tabSignup.classList.toggle("active", mode === "signup");
       tabLogin.classList.toggle("active", mode === "login");
       submitBtn.textContent = mode === "signup" ? "Sign up" : "Log in";
+      heading.textContent = mode === "signup" ? "Sign up to comment" : "Log in to comment";
+      
+      if (mode === "signup") {
+        toggleAccountText.innerHTML = 'Already have an account? <button type="button" class="text-btn" id="switch-mode-btn">Log in</button>';
+      } else {
+        toggleAccountText.innerHTML = 'Don\'t have an account? <button type="button" class="text-btn" id="switch-mode-btn">Sign up</button>';
+      }
+      
+      // Re-attach event listener to the newly rendered toggle button
+      document.getElementById("switch-mode-btn").addEventListener("click", () => {
+        setMode(mode === "signup" ? "login" : "signup");
+      });
+
       passwordInput.setAttribute(
         "autocomplete",
         mode === "signup" ? "new-password" : "current-password"
@@ -263,6 +295,7 @@
 
     tabSignup.addEventListener("click", () => setMode("signup"));
     tabLogin.addEventListener("click", () => setMode("login"));
+    switchModeBtn.addEventListener("click", () => setMode(mode === "signup" ? "login" : "signup"));
 
     function showMessage(text, isError) {
       messageEl.textContent = text;
@@ -285,7 +318,6 @@
 
         window.location.href = "home.html";
       } else {
-        heading.textContent = "Sign in to comment";
         formCard.style.display = "block";
         statusCard.style.display = "none";
       }
