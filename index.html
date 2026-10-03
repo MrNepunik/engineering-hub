@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Engineering Hub</title>
+
+<!-- Firebase (compat SDK — simplest for plain script tags, no build step needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --panel: #10182b;
+    --line: #1f2a44;
+    --ink: #eef1f7;
+    --muted: #7c8aa8;
+    --accent: #4c8dff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .logo {
+    font-family: "Archivo", sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  main {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 64px 20px 80px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 900;
+    font-size: 34px;
+    margin: 0 0 32px;
+    line-height: 1.15;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 28px;
+    text-align: left;
+    border-radius: 12px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .tabs button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0 0 8px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .tabs button.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  input {
+    width: 100%;
+    background: #0a0e1a;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    font-family: inherit;
+    border-radius: 8px;
+  }
+
+  input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    background: var(--accent);
+    color: #061024;
+    border: none;
+    padding: 11px 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  button[type="submit"]:hover { opacity: 0.92; }
+
+  button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  #message {
+    font-size: 13px;
+    margin: -6px 0 14px;
+    min-height: 16px;
+  }
+
+  #message.error { color: #ff6b6b; }
+  #message.ok { color: #4cd98a; }
+
+  .skip {
+    display: block;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
+    text-decoration: underline;
+  }
+
+  .skip:hover { color: var(--ink); }
+
+  #status-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 28px;
+    font-size: 14px;
+    color: var(--muted);
+    border-radius: 12px;
+  }
+
+  #status-card strong { color: var(--ink); }
+
+  .status-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .btn-primary {
+    flex: 1;
+    background: var(--accent);
+    color: #061024;
+    border: none;
+    padding: 11px 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+
+  .signout {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 11px 16px;
+    border-radius: 8px;
+  }
+
+  .signout:hover { color: var(--ink); border-color: var(--accent); }
+</style>
+</head>
+
+<body>
+
+  <header>
+    <a class="logo" href="home.html">Bibek <span>Dahal</span></a>
+  </header>
+
+  <main>
+    <div class="eyebrow">Account · Engineering Hub</div>
+    <h1 id="heading">Sign in to comment</h1>
+
+    <div id="form-card" class="card" style="display:none;">
+      <div class="tabs">
+        <button id="tab-signup" class="active" type="button">Sign up</button>
+        <button id="tab-login" type="button">Log in</button>
+      </div>
+
+      <form id="auth-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          required
+          minlength="6"
+          autocomplete="new-password">
+
+        <p id="message"></p>
+
+        <button type="submit" id="submit-btn">Sign up</button>
+      </form>
+    </div>
+
+    <div id="status-card" class="card" style="display:none;"></div>
+
+    <a class="skip" href="home.html" id="skip-link">Continue without signing in</a>
+  </main>
+
+  <script>
+    // ---------- Firebase setup ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTZoNdhhlgaHDnCwuA5NpAyFHGXCWYNvY",
+      authDomain: "engineering-hub-2e9a6.firebaseapp.com",
+      projectId: "engineering-hub-2e9a6",
+      storageBucket: "engineering-hub-2e9a6.firebasestorage.app",
+      messagingSenderId: "207771035782",
+      appId: "1:207771035782:web:7b6ac40533b71c982fc907",
+      measurementId: "G-E861KEP21B"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // ---------- Element refs ----------
+    const form = document.getElementById("auth-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const submitBtn = document.getElementById("submit-btn");
+    const messageEl = document.getElementById("message");
+    const formCard = document.getElementById("form-card");
+    const statusCard = document.getElementById("status-card");
+    const heading = document.getElementById("heading");
+    const tabSignup = document.getElementById("tab-signup");
+    const tabLogin = document.getElementById("tab-login");
+    const skipLink = document.getElementById("skip-link");
+
+    let mode = "signup";
+
+    function setMode(newMode) {
+      mode = newMode;
+      tabSignup.classList.toggle("active", mode === "signup");
+      tabLogin.classList.toggle("active", mode === "login");
+      submitBtn.textContent = mode === "signup" ? "Sign up" : "Log in";
+      passwordInput.setAttribute(
+        "autocomplete",
+        mode === "signup" ? "new-password" : "current-password"
+      );
+      messageEl.textContent = "";
+      messageEl.className = "";
+    }
+
+    tabSignup.addEventListener("click", () => setMode("signup"));
+    tabLogin.addEventListener("click", () => setMode("login"));
+
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = type; // "error" or "ok"
+    }
+
+    // ---------- Sign up / Log in ----------
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      showMessage("", "");
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      try {
+        if (mode === "signup") {
+          await auth.createUserWithEmailAndPassword(email, password);
+        } else {
+          await auth.signInWithEmailAndPassword(email, password);
+        }
+        // onAuthStateChanged below will update the UI once this resolves
+      } catch (err) {
+        showMessage(err.message || "Something went wrong. Try again.", "error");
+        submitBtn.disabled = false;
+      }
+    });
+
+    // ---------- Sign out ----------
+    function signOut() {
+      auth.signOut();
+    }
+
+    // ---------- Visible auth state (no silent redirect) ----------
+    auth.onAuthStateChanged((user) => {
+      submitBtn.disabled = false;
+
+      if (user) {
+        // Signed in: show status card instead of silently jumping to home.html
+        formCard.style.display = "none";
+        skipLink.style.display = "none";
+        heading.textContent = "You're signed in";
+
+        statusCard.style.display = "block";
+        statusCard.innerHTML = `
+          <p>Signed in as <strong>${escapeHtml(user.email || "")}</strong></p>
+          <div class="status-actions">
+            <a class="btn-primary" href="home.html">Go to Engineering Hub</a>
+            <button class="signout" id="signout-btn" type="button">Sign out</button>
+          </div>
+        `;
+        document.getElementById("signout-btn").addEventListener("click", signOut);
+      } else {
+        // Signed out: show the form
+        formCard.style.display = "block";
+        skipLink.style.display = "block";
+        statusCard.style.display = "none";
+        heading.textContent = "Sign in to comment";
+      }
+    });
+
+    function escapeHtml(str) {
+      const d = document.createElement("div");
+      d.textContent = str;
+      return d.innerHTML;
+    }
+  </script>
+
+</body>
+</html>
